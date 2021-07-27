@@ -7,7 +7,7 @@
         "salesforce"
     ],
     "repository": "https://github.com/jziesing/multi-org",
-    "env": {
+    "env": [
         "SCHEMA_A": {
             "description": "the postgres schema name of org a",
             "value": ""
@@ -16,7 +16,7 @@
             "description": "the postgres schema name of org a",
             "value": ""
         }
-    },
+    ],
     "formation": {
         "web": {
             "quantity": 1,
