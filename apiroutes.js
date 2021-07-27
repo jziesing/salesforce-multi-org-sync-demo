@@ -33,7 +33,7 @@ ApiRoutes.get('/add-sync-trigger', async (req, res) => {
                          -- change value base64 to ensure writing to _trigger_log is enabled \
                         SET LOCAL xmlbinary TO \'base64\'; \
                          IF new.phone != old.phone THEN \
-                              UPDATE schemab.contact \
+                              UPDATE '  + schemab + '.contact \
                               SET phone = new.phone \
                               WHERE email = old.email; \
                          END IF; \
@@ -63,7 +63,7 @@ ApiRoutes.get('/add-sync-trigger', async (req, res) => {
                           -- change value base64 to ensure writing to _trigger_log is enabled \
                          SET LOCAL xmlbinary TO \'base64\'; \
                           IF new.phone != old.phone THEN \
-                               UPDATE schemaa.contact \
+                               UPDATE ' + schemaa + '.contact \
                                SET phone = new.phone \
                                WHERE email = old.email; \
                           END IF; \
