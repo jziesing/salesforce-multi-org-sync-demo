@@ -1,6 +1,7 @@
-# Simple Multi Salesforce Org sync Demo
+# Simple Multi Salesforce Org Sync Demo
 
-### This project demos a simple way to synchronize Salesforce orgs together using Heroku, Postgres, Heroku Connect, and Postgres triggers
+## Summary
+This project demos a simple way to synchronize two Salesforce orgs together using Heroku, Postgres, Heroku Connect, and Postgres triggers.  Specifically it shows contacts phone numbers from each org staying synchronized with each other.  The code in this app adds 2 simple postgres triggers to keep contacts phone numbers from each Salesforce org synchronized after Heroku Connect is setup.  It relies on Heroku Connect for most of the synchronization. THIS IS JUST A DEMO
 
 ## Prerequisites
 1. Signup for 2 free demo Salesforce orgs [link to signup](https://developer.salesforce.com/signup)
