@@ -19,9 +19,7 @@ ApiRoutes.get('/add-sync-trigger', async (req, res) => {
     let schemab = process.env.SCHEMA_A;
     console.log('schemaa :: ' +  schemaa);
 
-    let queryFunkA = 'CREATE OR REPLACE FUNCTION ' + schemaa + '.' + schemaa + '_update_contact_phone() \
-                        RETURNS trigger \
-                        LANGUAGE \'plpgsql\' \
+    let queryFunkA = 'CREATE OR REPLACE FUNCTION ' + schemaa + '.update_contact_phone() RETURNS trigger LANGUAGE 'plpgsql' \
                         COST 100 \
                         VOLATILE NOT LEAKPROOF \
                     AS $BODY$ \
@@ -31,7 +29,7 @@ ApiRoutes.get('/add-sync-trigger', async (req, res) => {
                          -- save old value \
                          oldxmlbinary := get_xmlbinary(); \
                          -- change value base64 to ensure writing to _trigger_log is enabled \
-                        SET LOCAL xmlbinary TO \'base64\'; \
+                        SET LOCAL xmlbinary TO 'base64'; \
                          IF new.phone != old.phone THEN \
                               UPDATE '  + schemab + '.contact \
                               SET phone = new.phone \
@@ -96,33 +94,36 @@ ApiRoutes.get('/add-sync-trigger', async (req, res) => {
                     console.log(err);
                     // reject();
                 }
-                console.log(ress);
-                currclient.query(queryTrigA, (errr, resss) => {
-                    if (errr){
-                        console.log('err 2');
-                        console.log(errr);
-                        // reject();
-                    }
-                    console.log(resss);
-                    currclient.query(queryFunkB, (errrr, ressss) => {
-                        if (errrr){
-                            console.log('err 3');
-                            console.log(errrr);
-                            // reject();
-                        }
-                        console.log(ressss);
-                        currclient.query(queryTrigB, (errrrr, resssss) => {
-                            if (errr){
-                                console.log('err 4');
-                                console.log(errrrr);
-                            }
-
-                            console.log(resssss);
+                // console.log(ress);
+                // currclient.query(queryTrigA, (errr, resss) => {
+                //     if (errr){
+                //         console.log('err 2');
+                //         console.log(errr);
+                //         // reject();
+                //     }
+                //     console.log(resss);
+                //     currclient.query(queryFunkB, (errrr, ressss) => {
+                //         if (errrr){
+                //             console.log('err 3');
+                //             console.log(errrr);
+                //             // reject();
+                //         }
+                //         console.log(ressss);
+                //         currclient.query(queryTrigB, (errrrr, resssss) => {
+                //             if (errr){
+                //                 console.log('err 4');
+                //                 console.log(errrrr);
+                //             }
+				//
+                //             console.log(resssss);
+				//
+                //             res.sendStatus(200);
+                //         });
+                //     });
+                // });
+				            console.log(ress);
 
                             res.sendStatus(200);
-                        });
-                    });
-                });
             });
 });
 
