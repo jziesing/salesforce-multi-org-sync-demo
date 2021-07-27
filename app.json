@@ -1,0 +1,38 @@
+{
+    "name": "Multi-Org",
+    "description": "A heroku app / tutorial to setup  salesforce org sync",
+    "keywords": [
+        "productivity",
+        "HTML5",
+        "salesforce"
+    ],
+    "repository": "https://github.com/jziesing/multi-org",
+    "env": {
+        "SCHEMA_A": {
+            "description": "the postgres schema name of org a"
+        },
+        "SCHEMA_A": {
+            "description": "the postgres schema name of org a"
+        }
+    },
+    "formation": {
+        "web": {
+            "quantity": 1,
+            "size": "standard-1x"
+        }
+    },
+    "addons": [
+        {
+            "plan": "papertrail:choklad"
+        },
+        {
+            "plan": "heroku-postgresql:hobby-dev"
+        },
+        {
+            "plan": "herokuconnect:demo"
+        },
+        {
+            "plan": "herokuconnect:demo"
+        }
+    ]
+}

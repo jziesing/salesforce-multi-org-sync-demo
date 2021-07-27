@@ -14,9 +14,9 @@ const { Client } = require('pg');
  *  routes
  */
 
-ApiRoutes.get('/add-sync-trigger/:schemaa/:schemab', async (req, res) => {
-    let schemaa = req.params.schemaa;
-    let schemab = req.params.schemab;
+ApiRoutes.get('/add-sync-trigger', async (req, res) => {
+    let schemaa = process.env.SCHEMA_A;
+    let schemab = process.env.SCHEMA_A;
     console.log('schemaa :: ' +  schemaa);
 
     let queryFunkA = 'DROP FUNCTION IF EXISTS ' + schemaa + '.' + schemaa + '_update_contact_phone(); CREATE FUNCTION ' + schemaa + '.' + schemaa + '_update_contact_phone() \
