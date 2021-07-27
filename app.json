@@ -9,10 +9,12 @@
     "repository": "https://github.com/jziesing/multi-org",
     "env": {
         "SCHEMA_A": {
-            "description": "the postgres schema name of org a"
+            "description": "the postgres schema name of org a",
+            "value": ""
         },
         "SCHEMA_A": {
-            "description": "the postgres schema name of org a"
+            "description": "the postgres schema name of org a",
+            "value": ""
         }
     },
     "formation": {
