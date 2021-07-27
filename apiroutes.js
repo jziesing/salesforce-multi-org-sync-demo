@@ -19,7 +19,7 @@ ApiRoutes.get('/add-sync-trigger', async (req, res) => {
     let schemab = process.env.SCHEMA_A;
     console.log('schemaa :: ' +  schemaa);
 
-    let queryFunkA = 'DROP FUNCTION IF EXISTS ' + schemaa + '.' + schemaa + '_update_contact_phone(); CREATE FUNCTION ' + schemaa + '.' + schemaa + '_update_contact_phone() \
+    let queryFunkA = 'CREATE OR REPLACE FUNCTION ' + schemaa + '.' + schemaa + '_update_contact_phone() \
                         RETURNS trigger \
                         LANGUAGE \'plpgsql\' \
                         COST 100 \
@@ -49,7 +49,7 @@ ApiRoutes.get('/add-sync-trigger', async (req, res) => {
                          FOR EACH ROW \
                          EXECUTE PROCEDURE ' + schemaa + '.' + schemaa + '_update_contact_phone();';
 
-     let queryFunkB = 'DROP FUNCTION IF EXISTS ' + schemab + '.' + schemab + '_update_contact_phone(); CREATE FUNCTION ' + schemab + '.' + schemab + '_update_contact_phone() \
+     let queryFunkB = 'CREATE OR REPLACE FUNCTION ' + schemab + '.' + schemab + '_update_contact_phone() \
                          RETURNS trigger \
                          LANGUAGE \'plpgsql\' \
                          COST 100 \
