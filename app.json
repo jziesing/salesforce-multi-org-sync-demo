@@ -1,11 +1,6 @@
 {
     "name": "Multi-Org",
     "description": "A heroku app / tutorial to setup  salesforce org sync",
-    "keywords": [
-        "productivity",
-        "HTML5",
-        "salesforce"
-    ],
     "repository": "https://github.com/jziesing/multi-org",
     "env": {
         "SCHEMA_A": {
