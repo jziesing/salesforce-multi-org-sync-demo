@@ -19,23 +19,20 @@ ApiRoutes.get('/add-sync-trigger', async (req, res) => {
     let schemab = process.env.SCHEMA_A;
     console.log('schemaa :: ' +  schemaa);
 
-    let queryFunkA = 'CREATE OR REPLACE FUNCTION ' + schemaa + '.update_contact_phone() RETURNS trigger LANGUAGE 'plpgsql' \
+    let queryFunkA = 'CREATE OR REPLACE FUNCTION ' + schemaa + '.update_contact_phone() RETURNS trigger LANGUAGE \'plpgsql\' \
                         COST 100 \
                         VOLATILE NOT LEAKPROOF \
                     AS $BODY$ \
                      DECLARE \
                       oldxmlbinary varchar; \
                      BEGIN \
-                         -- save old value \
                          oldxmlbinary := get_xmlbinary(); \
-                         -- change value base64 to ensure writing to _trigger_log is enabled \
-                        SET LOCAL xmlbinary TO 'base64'; \
+                        SET LOCAL xmlbinary TO \'base64\'; \
                          IF new.phone != old.phone THEN \
                               UPDATE '  + schemab + '.contact \
                               SET phone = new.phone \
                               WHERE email = old.email; \
                          END IF; \
-                         -- Reset the value \
                          EXECUTE \'SET LOCAL xmlbinary TO \' || oldxmlbinary; \
                          RETURN NEW; \
                      END; \
@@ -45,9 +42,9 @@ ApiRoutes.get('/add-sync-trigger', async (req, res) => {
                          AFTER UPDATE \
                          ON ' + schemaa + '.contact \
                          FOR EACH ROW \
-                         EXECUTE PROCEDURE ' + schemaa + '.' + schemaa + '_update_contact_phone();';
+                         EXECUTE PROCEDURE ' + schemaa + '.update_contact_phone();';
 
-     let queryFunkB = 'CREATE OR REPLACE FUNCTION ' + schemab + '.' + schemab + '_update_contact_phone() \
+     let queryFunkB = 'CREATE OR REPLACE FUNCTION ' + schemab + '.update_contact_phone() \
                          RETURNS trigger \
                          LANGUAGE \'plpgsql\' \
                          COST 100 \
@@ -56,16 +53,13 @@ ApiRoutes.get('/add-sync-trigger', async (req, res) => {
                       DECLARE \
                        oldxmlbinary varchar; \
                       BEGIN \
-                          -- save old value \
                           oldxmlbinary := get_xmlbinary(); \
-                          -- change value base64 to ensure writing to _trigger_log is enabled \
                          SET LOCAL xmlbinary TO \'base64\'; \
                           IF new.phone != old.phone THEN \
                                UPDATE ' + schemaa + '.contact \
                                SET phone = new.phone \
                                WHERE email = old.email; \
                           END IF; \
-                          -- Reset the value \
                           EXECUTE \'SET LOCAL xmlbinary TO \' || oldxmlbinary; \
                           RETURN NEW; \
                       END; \
@@ -75,7 +69,7 @@ ApiRoutes.get('/add-sync-trigger', async (req, res) => {
                           AFTER UPDATE \
                           ON ' + schemab + '.contact \
                           FOR EACH ROW \
-                          EXECUTE PROCEDURE ' + schemab + '.' + schemab + '_update_contact_phone();';
+                          EXECUTE PROCEDURE ' + schemab + '.update_contact_phone();';
 
 
 

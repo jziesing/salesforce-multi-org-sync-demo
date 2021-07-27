@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-      "start": "node server.js",
-      "hstart": "DATABASE_URL=`heroku config:get DATABASE_URL -a multi-org` node server.js"
+    "start": "node server.js",
+    "hstart": "DATABASE_URL=`heroku config:get DATABASE_URL -a test-multi-app` SCHEMA_A=`heroku config:get SCHEMA_A -a test-multi-app` SCHEMA_B=`heroku config:get SCHEMA_B -a test-multi-app` node server.js"
   },
   "repository": {
     "type": "git",
