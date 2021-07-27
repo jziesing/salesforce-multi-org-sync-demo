@@ -43,7 +43,7 @@ ApiRoutes.get('/add-sync-trigger', async (req, res) => {
                          ON ' + schemaa + '.contact \
                          FOR EACH ROW EXECUTE PROCEDURE ' + schemaa + '.update_contact_phone();';
 
-	let dropTableA = 'DROP TRIGGER IF EXISTS ' + schemaa + '_update_contact ON ' + schemaa + '.contact;';
+	let dropTriggerA = 'DROP TRIGGER IF EXISTS ' + schemaa + '_update_contact ON ' + schemaa + '.contact;';
 
      let queryFunkB = 'CREATE OR REPLACE FUNCTION ' + schemab + '.update_contact_phone() \
                          RETURNS trigger \
@@ -72,7 +72,7 @@ ApiRoutes.get('/add-sync-trigger', async (req, res) => {
                           FOR EACH ROW \
                           EXECUTE PROCEDURE ' + schemab + '.update_contact_phone();';
 
-	let dropTableB = 'DROP TRIGGER IF EXISTS ' + schemab + '_update_contact ON ' + schemab + '.contact;';
+	let dropTriggerB = 'DROP TRIGGER IF EXISTS ' + schemab + '_update_contact ON ' + schemab + '.contact;';
 
 
 
@@ -92,7 +92,7 @@ ApiRoutes.get('/add-sync-trigger', async (req, res) => {
                     // reject();
                 }
                 console.log(ress);
-				currclient.query(dropTableA, (err, ress) => {
+				currclient.query(dropTriggerA, (err, ress) => {
 	                currclient.query(queryTrigA, (errr, resss) => {
 	                    if (errr){
 	                        console.log('err 2');
@@ -107,7 +107,7 @@ ApiRoutes.get('/add-sync-trigger', async (req, res) => {
 	                            // reject();
 	                        }
 	                        console.log(ressss);
-							currclient.query(dropTableB, (errrr, ressss) => {
+							currclient.query(dropTriggerB, (errrr, ressss) => {
 		                        currclient.query(queryTrigB, (errrrr, resssss) => {
 		                            if (errr){
 		                                console.log('err 4');
