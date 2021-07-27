@@ -1,7 +1,7 @@
 {
-    "name": "Multi-Org",
+    "name": "salesforce-multi-org-sync-demo",
     "description": "A heroku app / tutorial to setup  salesforce org sync",
-    "repository": "https://github.com/jziesing/multi-org",
+    "repository": "https://github.com/jziesing/salesforce-multi-org-sync-demo",
     "env": {
         "SCHEMA_A": {
             "description": "the postgres schema name of org a",

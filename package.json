@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jziesing/multi-org.git"
+    "url": "git+https://github.com/jziesing/salesforce-multi-org-sync-demo.git"
   },
   "author": "Jack Ziesing",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jziesing/multi-org/issues"
+    "url": "https://github.com/jziesing/salesforce-multi-org-sync-demo/issues"
   },
-  "homepage": "https://github.com/jziesing/multi-org#readme",
+  "homepage": "https://github.com/jziesing/salesforce-multi-org-sync-demo#readme",
   "dependencies": {
     "body-parser": "^1.16.0",
     "express": "^4.14.1",
