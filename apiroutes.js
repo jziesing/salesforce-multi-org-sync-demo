@@ -94,13 +94,13 @@ ApiRoutes.get('/add-sync-trigger', async (req, res) => {
                 if (err){
                     // reject();
                 }
-                console.log(ressss);
+                console.log(ress);
                 currclient.query(queryTrigA, (errr, resss) => {
                     if (errr){
                         console.log(errr);
                         // reject();
                     }
-                    console.log(ress);
+                    console.log(resss);
                     currclient.query(queryFunkB, (errrr, ressss) => {
                         if (errrr){
                             console.log(errrr);

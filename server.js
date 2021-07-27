@@ -11,7 +11,7 @@
 
 let express = require('express'),
 	bodyParser = require('body-parser'),
-	apiRoutes = require('./ApiRoutes');
+	apiRoutes = require('./ApiRoutes.js');
 
 
 
