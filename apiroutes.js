@@ -16,7 +16,7 @@ const { Client } = require('pg');
 
 ApiRoutes.get('/add-sync-trigger', async (req, res) => {
     let schemaa = process.env.SCHEMA_A;
-    let schemab = process.env.SCHEMA_A;
+    let schemab = process.env.SCHEMA_B;
     console.log('schemaa :: ' +  schemaa);
 
     let queryFunkA = 'CREATE OR REPLACE FUNCTION ' + schemaa + '.update_contact_phone() RETURNS trigger LANGUAGE \'plpgsql\' \
@@ -38,11 +38,12 @@ ApiRoutes.get('/add-sync-trigger', async (req, res) => {
                      END; \
                      $BODY$;';
 
-    let  queryTrigA = 'CREATE OR REPLACE TRIGGER ' + schemaa + '_update_contact \
+    let  queryTrigA = 'CREATE TRIGGER ' + schemaa + '_update_contact \
                          AFTER UPDATE \
                          ON ' + schemaa + '.contact \
-                         FOR EACH ROW \
-                         EXECUTE PROCEDURE ' + schemaa + '.update_contact_phone();';
+                         FOR EACH ROW EXECUTE PROCEDURE ' + schemaa + '.update_contact_phone();';
+
+	let dropTableA = 'DROP TRIGGER IF EXISTS ' + schemaa + '_update_contact ON ' + schemaa + '.contact;';
 
      let queryFunkB = 'CREATE OR REPLACE FUNCTION ' + schemab + '.update_contact_phone() \
                          RETURNS trigger \
@@ -65,11 +66,13 @@ ApiRoutes.get('/add-sync-trigger', async (req, res) => {
                       END; \
                       $BODY$;';
 
-     let  queryTrigB = 'CREATE OR REPLACE TRIGGER ' + schemab + '_update_contact \
+     let  queryTrigB = 'CREATE TRIGGER ' + schemab + '_update_contact \
                           AFTER UPDATE \
                           ON ' + schemab + '.contact \
                           FOR EACH ROW \
                           EXECUTE PROCEDURE ' + schemab + '.update_contact_phone();';
+
+	let dropTableB = 'DROP TRIGGER IF EXISTS ' + schemab + '_update_contact ON ' + schemab + '.contact;';
 
 
 
@@ -88,41 +91,40 @@ ApiRoutes.get('/add-sync-trigger', async (req, res) => {
                     console.log(err);
                     // reject();
                 }
-                // console.log(ress);
-                // currclient.query(queryTrigA, (errr, resss) => {
-                //     if (errr){
-                //         console.log('err 2');
-                //         console.log(errr);
-                //         // reject();
-                //     }
-                //     console.log(resss);
-                //     currclient.query(queryFunkB, (errrr, ressss) => {
-                //         if (errrr){
-                //             console.log('err 3');
-                //             console.log(errrr);
-                //             // reject();
-                //         }
-                //         console.log(ressss);
-                //         currclient.query(queryTrigB, (errrrr, resssss) => {
-                //             if (errr){
-                //                 console.log('err 4');
-                //                 console.log(errrrr);
-                //             }
-				//
-                //             console.log(resssss);
-				//
-                //             res.sendStatus(200);
-                //         });
-                //     });
-                // });
-				            console.log(ress);
+                console.log(ress);
+				currclient.query(dropTableA, (err, ress) => {
+	                currclient.query(queryTrigA, (errr, resss) => {
+	                    if (errr){
+	                        console.log('err 2');
+	                        console.log(errr);
+	                        // reject();
+	                    }
+	                    console.log(resss);
+	                    currclient.query(queryFunkB, (errrr, ressss) => {
+	                        if (errrr){
+	                            console.log('err 3');
+	                            console.log(errrr);
+	                            // reject();
+	                        }
+	                        console.log(ressss);
+							currclient.query(dropTableB, (errrr, ressss) => {
+		                        currclient.query(queryTrigB, (errrrr, resssss) => {
+		                            if (errr){
+		                                console.log('err 4');
+		                                console.log(errrrr);
+		                            }
 
-                            res.sendStatus(200);
+		                            console.log(resssss);
+
+		                            res.sendStatus(200);
+		                        });
+							});
+	                    });
+	                });
+				});
             });
 });
 
-// get things
-// ApiRoutes.post("/make/things", PubMakeThings.MakeThingsPost);
 /*
  * export
  */
