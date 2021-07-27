@@ -27,5 +27,8 @@ app.use(bodyParser.json());
 app.use(apiRoutes);
 
 
+app.use(express.static(__dirname + '/client'));
+
+
 //  run
 app.listen(port, () => console.log( "Express server listening on port " + port) );
