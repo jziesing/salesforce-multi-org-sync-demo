@@ -8,8 +8,8 @@
             "value": "",
             "required": "true"
         },
-        "SCHEMA_A": {
-            "description": "the postgres schema name of org a",
+        "SCHEMA_B": {
+            "description": "the postgres schema name of org b",
             "value": "",
             "required": "true"
         }
