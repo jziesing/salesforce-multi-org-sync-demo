@@ -14,3 +14,5 @@ This project demos a simple way to synchronize two Salesforce orgs together usin
 4. Configure both Heroku Connect for each org. Map the contact object. Make sure to include the email field, phone field, check Accelerate Polling, and check the checkbox that enables updates back to Salesforce.
 5. From the admin screen on the Heroku App, click Open App, then click Make Database Triggers
 6. Now when you change the phone number on a contact in 1 Salesforce org, the contact with the same email in the second org will be updated with the new phone number from the other org.
+
+for question or issues please create a new Github issue
